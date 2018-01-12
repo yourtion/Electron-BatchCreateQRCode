@@ -1,0 +1,24 @@
+{
+  "name": "batch-create-qrcode",
+  "version": "0.1.0",
+  "description": "Batch Create QRCode Electron APP",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourtion/Electron-BatchCreateQRCode.git"
+  },
+  "keywords": [
+    "QRCode",
+    "Electron"
+  ],
+  "author": "Yourtion <yourtion@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourtion/Electron-BatchCreateQRCode/issues"
+  },
+  "homepage": "https://github.com/yourtion/Electron-BatchCreateQRCode#readme"
+}
