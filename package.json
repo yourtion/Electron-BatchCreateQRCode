@@ -5,6 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
+    "lint": "eslint src/*.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/yourtion/Electron-BatchCreateQRCode/issues"
   },
-  "homepage": "https://github.com/yourtion/Electron-BatchCreateQRCode#readme"
+  "homepage": "https://github.com/yourtion/Electron-BatchCreateQRCode#readme",
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-config-guo": "^0.6.0"
+  }
 }
