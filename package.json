@@ -1,6 +1,6 @@
 {
   "name": "batch-create-qrcode",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Batch Create QRCode Electron APP",
   "main": "src/main.js",
   "scripts": {
@@ -10,6 +10,7 @@
     "build:win": "electron-builder --win",
     "build:linux": "electron-builder --linux",
     "dist": "electron-builder --publish onTagOrDraft",
+    "tag": "git tag v`node -p 'require(\"./package\").version'`",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
