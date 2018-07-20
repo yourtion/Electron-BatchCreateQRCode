@@ -19,7 +19,7 @@ function leftPad(n, c) {
 }
 
 function isUrl(str) {
-  return str.indexOf('http') === 0;
+  return String(str).indexOf('http') === 0;
 }
 
 function getPrefix(source) {
@@ -49,7 +49,7 @@ function readExcel(file) {
   });
 }
 
-async function saveQR(options) {
+async function saveQR(event, options) {
   if(!sourcePath || !savePath) return;
   const file = await readExcel(sourcePath);
   const data = file[0] && file[0].data;
@@ -60,13 +60,17 @@ async function saveQR(options) {
     fs.mkdirSync(savePath);
   }
   let i = 0;
+  event.sender.send('process', 'all', data.length);
   for(const row of data) {
     const str = row && row[0];
     if(str && isUrl(str)) {
       i += 1;
-      const filePath = path.resolve(savePath, `${ prefix }_${ leftPad(i, 8) }.png`);
+      const filename = `${ prefix }_${ leftPad(i, 8) }.png`;
+      const filePath = path.resolve(savePath, filename);
       // console.log(row, filePath);
       await genQR(filePath, str, options);
+      event.sender.send('process', 'one', i);
+      event.sender.send('process', 'file', filename);
     }
   }
   shell.showItemInFolder(savePath);
@@ -113,6 +117,7 @@ ipc.on('start', async function (event, options, dist, dir) {
   if(isOpen) return;
   isOpen = true;
   savePath = path.resolve(dist, dir);
-  await saveQR(options);
+  await saveQR(event, options);
   isOpen = false;
+  event.sender.send('gen-done');
 });

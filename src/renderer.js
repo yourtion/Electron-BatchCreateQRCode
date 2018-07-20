@@ -1,6 +1,9 @@
 // 引入 ipcRenderer 模块。
 const ipc = require('electron').ipcRenderer;
 
+let all = 0;
+let pre = 0;
+
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 require('./libs/bootstrap/js/bootstrap.min.js');
 
@@ -52,6 +55,8 @@ $(function () {
       return;
     }
     $('#input-width').removeClass('has-error');
+    $('#start').attr('disabled', 'true');
+    $('#start').text('二维码生成中...');
 
     if(errorCorrectionLevel) obj.errorCorrectionLevel = errorCorrectionLevel;
     if(width) obj.width = Number(width);
@@ -59,6 +64,12 @@ $(function () {
     if(light) obj.color.light = light + 'ff';
 
     ipc.send('start', obj, path, subDir);
+  });
+
+  ipc.on('gen-done', function (event) {
+    $('#start').removeAttr('disabled');
+    $('#start').text('开始生成');
+    $('#process').hide();
   });
 
   ipc.on('selected-directory', function (event, path, prefix) {
@@ -70,6 +81,26 @@ $(function () {
 
   ipc.on('selected-dist', function (event, path) {
     $('#save-path').text(path + '/');
+  });
+
+  ipc.on('process', function (event, type, data) {
+    // console.log(type, data)
+    if(type === 'all') {
+      all = Number(data);
+      if(all > 100) {
+        $('#progress-bar').width(0);
+        $('#process').show();
+      }
+    }
+    if(type === 'one' && all) {
+      const precent = (Number(data) / all * 100).toFixed(2);
+      const p = parseInt(precent + 0.5, 10);
+      if(pre !== p) {
+        $('#progress-bar').width(p + '%');
+        pre = p;
+      }
+      $('#progress-bar span').text(precent + '%');
+    }
   });
 
   const holder = document.getElementById('drag-file');

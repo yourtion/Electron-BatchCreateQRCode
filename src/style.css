@@ -52,6 +52,12 @@ input.color {
   text-align: center;
 }
 
+#process {
+  width: 90%;
+  margin: 0 auto;
+  display: none;
+}
+
 #start {
   line-height: 44px;
   padding: 0 30px;
