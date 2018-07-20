@@ -3,14 +3,65 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Hello World!</title>
+  <title>二维码生成工具</title>
+  <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
 <body>
-  <h1>Hello World!</h1>
-  We are using node
-  <script>document.write(process.versions.node)</script>, Chrome
-  <script>document.write(process.versions.chrome)</script>, and Electron
-  <script>document.write(process.versions.electron)</script>.
+  <h2 class="title no-text-select">欢迎使用二维码生成工具</h2>
+  <div id="drag-file-container">
+    <div id="drag-file" class="no-text-select">
+      <p id="selected-file">拖拽要导入的Excel至此</p>
+      <button id="upload" class="btn btn-success">点击选择文件</button>
+    </div>
+  </div>
+
+  <div id="qr-setting">
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="errorCorrectionLevel">纠错：</label>
+        <select class="form-control" id="errorCorrectionLevel">
+          <option>L</option>
+          <option selected>M</option>
+          <option>Q</option>
+          <option>H</option>
+        </select>
+      </div>
+      <div class="form-group input-group" id="input-width">
+        <label class="sr-only" for="width">大小</label>
+        <input type="input" class="form-control" id="width" placeholder="大小">
+        <div class="input-group-addon">px</div>
+      </div>
+      <div class="form-group">
+        <label for="width">颜色：</label>
+        <input type="color" class="form-control color" value="#000000" id="dark" placeholder="颜色">
+      </div>
+      <div class="form-group">
+        <label for="dark">背景色：</label>
+        <input type="color" class="form-control color" value="#ffffff" id="light" placeholder="背景色">
+      </div>
+    </form>
+
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="sub-dir">保存路径</label>
+        <button id="select-save-path" class="btn btn-primary">选择文件夹</button>
+        <div class="input-group" id="dist-path">
+          <div class="input-group-addon" id="save-path"></div>
+          <input type="text" class="form-control" id="sub-dir" placeholder="子目录">
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div id="save-container">
+    <button id="start" class="btn btn-success">开始生成</button>
+  </div>
+
+  <footer id="footer" class="no-text-select"></footer>
 </body>
+<script type="text/javascript" src="renderer.js"></script>
+
 </html>
