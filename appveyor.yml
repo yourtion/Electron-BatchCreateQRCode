@@ -15,10 +15,6 @@ build_script:
 
 test: off
 
-branches:
-  only:
-    - master
-
 environment:
   GH_TOKEN:
     secure: FtK/1TBFTpILF8FUUXRkeWvWmxVYgWnIhby/J+IzIHYZxomJ4ERIfYY/Iid1ZOdJ

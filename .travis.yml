@@ -25,10 +25,6 @@ cache:
 script:
   - npm run dist
 
-branches:
-  only:
-    - master
-
 env:
   global:
     - secure: "lqvSOmS5nLgn/5zR765qwXbnMIDTN6aghL6R5EkYL4EY7ef2b0mKXG/xxeaIA2MSUS6SQxqKPBwLV5pc2qOOCxd5JJRtXvxD01CNJfRq0SXvUF6eb3os0JhDkjXj61PxQBIIhuv4dJ7tkfct9uVvSRJADlqMIlwqXvapBRjhW/PR8DVPkozf0YIWnhI2BfEcMqhLBLpnNgdY8TpFU0td253jpUhS7INRV6vwzFnVfv8N2ktAc04v1knyu8JNNxzFjZTuBEFlZgR22GyXkwCDtJ0DTrdLuhwLicd5mSa/b+LKaPHISU1R41w1pRSvfTxipfwD2g4ixac6z9rJ3x3ktz93c1yr//ik8FYglwh5Yjg0eUqMWSpkfk1soOnieA++rPX/jItaV0QwHcaVMSJOKbZ6KvabeNwGYYJHBl8lXo42VbZUluKgLfexQSTCL4gw7cEDqddZI5xYxpnCBThG5ZBJ6/AAIERpFpYZltQr9HAqzrPsF3pwOA8Y+4f/sJ1xJTZQz4zcqrsp7fhLI9oOQVQw7w8dCjRJDsA7+NkVDzGABdGUvGJn4AMx8opHhXZELoj+B6spGjx+Cf9tZnaS0rB4h2w42uXIpItQMPpKZfRDcJZeWU2HqDE4zPw+od/lJjUj5Ve5mni4gHQVKYQIYKe8kSEBoR0XO7iA5/cOf1w="
