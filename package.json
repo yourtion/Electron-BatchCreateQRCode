@@ -6,6 +6,10 @@
   "scripts": {
     "start": "electron .",
     "lint": "eslint src/*.js --fix",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win",
+    "build:linux": "electron-builder --linux",
+    "dist": "electron-builder --publish onTagOrDraft",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +27,8 @@
   },
   "homepage": "https://github.com/yourtion/Electron-BatchCreateQRCode#readme",
   "devDependencies": {
+    "electron": "^2.0.5",
+    "electron-builder": "^20.22.0",
     "eslint": "^4.15.0",
     "eslint-config-guo": "^0.6.0"
   },
