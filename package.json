@@ -10,7 +10,7 @@
     "build:win": "electron-builder --win",
     "build:linux": "electron-builder --linux",
     "dist": "electron-builder --publish onTagOrDraft",
-    "tag": "git tag `node -p 'require(\"./package\").version'`",
+    "tag": "git tag v`node -p 'require(\"./package\").version'`",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,12 +29,13 @@
   "homepage": "https://github.com/yourtion/Electron-BatchCreateQRCode#readme",
   "devDependencies": {
     "electron": "^2.0.5",
-    "electron-builder": "^20.22.0",
-    "eslint": "^4.15.0",
-    "eslint-config-guo": "^0.6.0"
+    "electron-builder": "^20.24.4",
+    "eslint": "^5.2.0",
+    "eslint-config-guo": "^0.8.0"
   },
   "dependencies": {
-    "node-xlsx": "^0.11.2",
+    "@sentry/electron": "^0.7.0",
+    "node-xlsx": "^0.12.1",
     "qrcode": "^1.2.0"
   },
   "build": {

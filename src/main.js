@@ -1,9 +1,25 @@
 const { app, BrowserWindow } = require('electron');
+const os = require('os');
 const path = require('path');
 const url = require('url');
 
 function isDev() {
   return process.mainModule.filename.indexOf('app.asar') === -1;
+}
+
+if (!isDev()) {
+  const { init } = require('@sentry/electron');
+  init({
+    dsn: 'https://9a9210f981ab400fae539f8436652864@sentry.io/1247880',
+    captureUnhandledRejections: true,
+    tags: {
+      process: process.type,
+      electron: process.versions.electron,
+      chrome: process.versions.chrome,
+      platform: os.platform(),
+      platform_release: os.release(),
+    },
+  });
 }
 
 require('./genqr');
@@ -21,11 +37,13 @@ function createWindow() {
   });
 
   // 然后加载应用的 index.html。
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true,
-  }));
+  win.loadURL(
+    url.format({
+      pathname: path.join(__dirname, 'index.html'),
+      protocol: 'file:',
+      slashes: true,
+    })
+  );
 
   // 打开开发者工具。
   if (isDev()) {
@@ -40,7 +58,7 @@ function createWindow() {
     win = null;
   });
 
-  win.on('ready-to-show', function () {
+  win.on('ready-to-show', () => {
     win.show();
     win.focus();
   });
