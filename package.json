@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/yourtion/Electron-BatchCreateQRCode#readme",
   "devDependencies": {
-    "electron": "^2.0.8",
+    "electron": "^9.1.0",
     "electron-builder": "^20.28.4",
     "eslint": "^5.5.0",
     "eslint-config-guo": "^0.8.0"
