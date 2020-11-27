@@ -76,35 +76,44 @@ async function saveQR(event, options) {
   shell.showItemInFolder(savePath);
 }
 
-ipc.on('open-file-dialog', function (event) {
+ipc.on('open-file-dialog', async function (event) {
   if(isOpen) return;
   isOpen = true;
-  dialog.showOpenDialog({
-    properties: [ 'openFile' ],
-    filters: [
-      { name: 'Excel', extensions: [ 'xlsx', 'xls' ]},
-    ],
-  }, function (files) {
-    if (files && files[0]) {
-      sourcePath = files[0];
-      const prefix = getPrefix(sourcePath);
-      event.sender.send('selected-directory', files[0], prefix);
+  try {
+    const ret = await dialog.showOpenDialog({
+      properties: [ 'openFile' ],
+      filters: [
+        { name: 'Excel', extensions: [ 'xlsx', 'xls' ]},
+      ],
+    });
+    if(ret.filePaths && ret.filePaths.length > 0) {
+      const prefix = getPrefix(ret.filePaths[0]);
+      sourcePath = ret.filePaths[0];
+      event.sender.send('selected-directory', ret.filePaths[0], prefix);
     }
+  } catch (error) {
+    console.error(error);
+  } finally{
     isOpen = false;
-  });
+  }
 });
 
-ipc.on('open-dir-dialog', function (event) {
+ipc.on('open-dir-dialog', async function (event) {
   if(isOpen) return;
   isOpen = true;
-  dialog.showOpenDialog({
-    properties: [ 'openDirectory' ],
-  }, async function (files) {
-    if(files && files[0]) {
-      event.sender.send('selected-dist', files[0]);
+  try {
+    const ret = await dialog.showOpenDialog({
+      properties: [ 'openDirectory' ],
+    });
+    if(ret.filePaths && ret.filePaths.length > 0) {
+      savePath = ret.filePaths[0];
+      event.sender.send('selected-dist', ret.filePaths[0]);
     }
+  } catch (error) {
+    console.error(error);
+  } finally {
     isOpen = false;
-  });
+  }
 });
 
 ipc.on('drop-file-ok', function (event, dist) {
@@ -117,7 +126,12 @@ ipc.on('start', async function (event, options, dist, dir) {
   if(isOpen) return;
   isOpen = true;
   savePath = path.resolve(dist, dir);
-  await saveQR(event, options);
-  isOpen = false;
+  try {
+    await saveQR(event, options);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    isOpen = false;
+  }
   event.sender.send('gen-done');
 });

@@ -35,7 +35,7 @@ function createWindow() {
     height: 600,
     show: false,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
     },
   });
 
@@ -65,6 +65,10 @@ function createWindow() {
     win.show();
     win.focus();
   });
+
+  win.on('focus', () => {
+    setBadge('');
+  });
 }
 
 // Electron 会在初始化后并准备
@@ -88,3 +92,11 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+function setBadge(text) {
+  app.dock && app.dock.setBadge(text);
+}
+
+function setProcess(process) {
+  win && win.setProgressBar(process || -1);
+}

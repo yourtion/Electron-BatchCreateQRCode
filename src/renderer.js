@@ -8,7 +8,7 @@ window.$ = window.jQuery = require('./libs/jquery.min.js');
 require('./libs/bootstrap/js/bootstrap.min.js');
 
 function isDev() {
-  return process.mainModule.filename.indexOf('app.asar') === -1;
+  return process.mainModule && process.mainModule.filename.indexOf('app.asar') === -1;
 }
 
 function info() {
@@ -62,14 +62,17 @@ $(function () {
     if(width) obj.width = Number(width);
     if(dark) obj.color.dark = dark + 'ff';
     if(light) obj.color.light = light + 'ff';
-
     ipc.send('start', obj, path, subDir);
   });
 
-  ipc.on('gen-done', function (event) {
+  ipc.on('gen-done', function () {
     $('#start').removeAttr('disabled');
     $('#start').text('开始生成');
     $('#process').hide();
+    const notification = new Notification('二维码生成完成', { silent: true });
+    notification.onclick = () => ipc.send('forceWindow', 'main');
+    // main.setBadge('1');
+    // main.setProcess(-1);
   });
 
   ipc.on('selected-directory', function (event, path, prefix) {
@@ -100,6 +103,7 @@ $(function () {
         pre = p;
       }
       $('#progress-bar span').text(precent + '%');
+      // main.setProcess(Number(data) / all);
     }
   });
 
