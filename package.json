@@ -1,6 +1,6 @@
 {
   "name": "batch-create-qrcode",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Batch Create QRCode Electron APP",
   "main": "src/main.js",
   "scripts": {
