@@ -45,7 +45,7 @@ function createWindow() {
       pathname: path.join(__dirname, 'index.html'),
       protocol: 'file:',
       slashes: true,
-    })
+    }),
   );
 
   // 打开开发者工具。
