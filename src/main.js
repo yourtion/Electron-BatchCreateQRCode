@@ -3,11 +3,7 @@ const os = require('os');
 const path = require('path');
 const url = require('url');
 
-function isDev() {
-  return process.mainModule.filename.indexOf('app.asar') === -1;
-}
-
-if (!isDev()) {
+if (app.isPackaged) {
   const { init } = require('@sentry/electron');
   init({
     dsn: 'https://9a9210f981ab400fae539f8436652864@sentry.io/1247880',
@@ -36,20 +32,15 @@ function createWindow() {
     show: false,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
   // 然后加载应用的 index.html。
-  win.loadURL(
-    url.format({
-      pathname: path.join(__dirname, 'index.html'),
-      protocol: 'file:',
-      slashes: true,
-    }),
-  );
+  win.loadURL(`file://${ __dirname }/index.html`);
 
   // 打开开发者工具。
-  if (isDev()) {
+  if (!app.isPackaged) {
     win.webContents.openDevTools();
   }
 
